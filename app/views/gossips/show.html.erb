@@ -41,7 +41,32 @@
 	<br/>
 	<br/>
 	<br/>
+<h2 class="text-white"> Commentaire </h2>
+<% g.comments.each do |comment| %>
+<div class="container">
+<div class="row">
 
+<div class=" col ">
+<br/>
+<br/>
+<div class="card-header  card text-dark    ">
+ <strong><%= comment.user.first_name %></strong>
+<%= comment.content %>
+  <br/>
+  <br/>
+</div>
+</div>
+</div>
+</div>
+<button type="button" class="btn btn-dark"><a class="text-white" <%= link_to "Modifier", edit_comment_path(comment.id) %></a></button>
+
+<button type="button" class="btn btn-dark"><a class="text-white"<%= link_to 'Supprimer',
+						 comment_path(comment.id),
+												 method: :delete,
+												 data: { confirm: 'Are you sure?' } %>  </button>
+												 <br/>
+												 <br/>
+<% end %>
 	Ecrit ton commentaire ici :
 	<%= form_tag url_for(controller: 'comment',action: 'create', method: "post") do %>
 
@@ -50,13 +75,15 @@
 		<%= text_field_tag 'commentaire' %>
 		<br /> <br />
 
-		<%= label_tag 'id du gossip' %>
-		<%= text_field_tag 'id', params[:id] %>
+		<%= hidden_field_tag 'id', params[:id] %>
 		<br /> <br />
 
 		<%= submit_tag "Valider" %>
 
 	<% end %>
+
+
+
 
 </body>
 </html>
