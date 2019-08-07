@@ -3,6 +3,7 @@
 <% 10.times do %>
 <br/>
 <% end %>
+
 <center>
 	<% g = Gossip.find(params[:id]) %>
 
@@ -12,6 +13,8 @@
 <div class=" col ">
   <p> Créateur : </p>
 <h1>  <a class="text-white" <%= link_to g.user.first_name, user_path(g.user.id) %>  </a></h1>
+<br/>
+<a class="text-white" <%=link_to g.user.city.name, city_path(g.user.city.id)  %> </a>
 <br/>
 
   <div class="card-header  card text-white    ">
@@ -26,11 +29,34 @@
 </div>
 <!--	<a href="/edit/gossip/<%= params[:id]%>">Modifier</a> -->
 <br/>
-<p> <a class="text-white" <%= link_to "Retour au menu des gossips ", gossips_path %></a>
+<button type="button" class="btn btn-dark"><a class="text-white" <%= link_to "Modifier", edit_gossip_path(g.id) %></a></button>
+
+<button type="button" class="btn btn-dark"><a class="text-white"<%= link_to 'Supprimer',
+             gossip_path(g.id),
+                         method: :delete,
+                         data: { confirm: 'Are you sure?' } %>  </button>
+												 <br/>
+												 <br/>
+<button type="button" class="btn btn-dark"><a class="text-white" <%= link_to "Retour", gossips_path %></a></button>
 	<br/>
 	<br/>
 	<br/>
 
+	Ecrit ton commentaire ici :
+	<%= form_tag url_for(controller: 'comment',action: 'create', method: "post") do %>
+
+
+		<%= label_tag 'Commentaire' %>
+		<%= text_field_tag 'commentaire' %>
+		<br /> <br />
+
+		<%= label_tag 'id du gossip' %>
+		<%= text_field_tag 'id', params[:id] %>
+		<br /> <br />
+
+		<%= submit_tag "Valider" %>
+
+	<% end %>
 
 </body>
 </html>

@@ -15,7 +15,7 @@ class GossipsController < ApplicationController
   def create
     @gossip = Gossip.new(title: params[:title],content: params[:gossip], user: User.all.sample)
   if @gossip.save
-    redirect_to gossip_path(@gossip.id)
+    redirect_to({:action=>'index'}, :alert =>"success")  #gossip_path(@gossip.id)
   else
     render new_gossip_path
   end
@@ -26,13 +26,20 @@ end
   end
 
   def update
+    @gossip = Gossip.find(params[:id])
+  if @gossip.update(title: params[:title],content: params[:gossip])
+    redirect_to @gossip
+  else
+    render :edit
+  end
     # Méthode qui met à jour le potin à partir du contenu du formulaire de edit.html.erb, soumis par l'utilisateur
     # pour info, le contenu de ce formulaire sera accessible dans le hash params
     # Une fois la modification faite, on redirige généralement vers la méthode show (pour afficher le potin modifié)
   end
 
   def destroy
-    # Méthode qui récupère le potin concerné et le détruit en base
-    # Une fois la suppression faite, on redirige généralement vers la méthode index (pour afficher la liste à jour)
+@gossip = Gossip.find(params[:id])
+@gossip.destroy
+redirect_to gossips_path
   end
 end

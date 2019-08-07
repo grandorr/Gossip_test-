@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>Modifie un gossip</title>
+  </head>
+  <body class="text-white">
+    <center><h1>Modifie le potin  !</h1></center>
+    <p><center>Modifie ton potin via le formulaire ci-dessous</center></p>
+  <center>
+        <% g = Gossip.find(params[:id]) %>
+    <%= form_tag url_for(action: 'update'), method: "patch" do %>
+
+
+
+
+
+      <%= label_tag 'Title' %>
+      <%= text_field_tag 'title', g.title  %>
+      <br /> <br />
+
+
+
+
+      <%= label_tag 'Gossip' %>
+      <%= text_field_tag 'gossip', g.content %>
+      <br /> <br />
+
+
+      <%= submit_tag "Valider" %>
+
+    <% end %> </center>
+    <br/>
+
+
+
+  <!--  <center><form action= <%= gossips_path %> method='POST'>
+       <input type="hidden" name="authenticity_token" value=<%= form_authenticity_token %> >
+      Votre nom :  <input type='text' name='gossip_author'/><br/>
+      Ton gossip : <input type='text' name='gossip_content'/><br/>
+      <input type='submit' value="Valider"> -->
+
+  </body>
+</html>

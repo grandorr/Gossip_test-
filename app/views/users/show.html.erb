@@ -9,6 +9,7 @@
 <p> <%= u.last_name %>
 <p>  <%= u.email %>
 <p>  <%= u.age %> ans
+<p> <%=link_to u.city.name, city_path(u.city.id)  %>
 <h5><p>  <%= u.description %></h5>
 <p> Date de création du profil : <%= u.created_at %>
 <br/>

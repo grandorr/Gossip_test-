@@ -1,0 +1,20 @@
+
+ <body>
+   <% c = City.find(params[:id]) %>
+   <center><h1 class="text-white"><%= c.name %></h1></center>
+   <%  c.users.all.each do |user| %>
+      <% user.gossips.all.each do |gossip| %>
+
+
+  <div class="container">
+    <div class="row">
+
+  <div class=" col-md-5 ">
+    <div class="card-header  card text-white    ">
+
+         Titre : <br/> <h2><a class="text-white" > <%= link_to gossip.title, gossip_path(gossip.id) %> </a><br/> </h2>
+Autheur :<h2 class="text-white"> <%= link_to user.first_name, user_path(user.id) %> <h2>
+          </div>
+          </div>
+        <% end %>
+        <% end %>
