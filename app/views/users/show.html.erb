@@ -1,0 +1,35 @@
+<html>
+<body class="user text-white">
+<% 5.times do %>
+<br/>
+<% end %>
+<center>
+<!-- <%=u = User.find(params[:id])%> -->
+<h1><%= u.first_name %></h1>
+<p> <%= u.last_name %>
+<p>  <%= u.email %>
+<p>  <%= u.age %> ans
+<h5><p>  <%= u.description %></h5>
+<p> Date de création du profil : <%= u.created_at %>
+<br/>
+<br/>
+<h3><p> Voici tout les gossips crée par <%= u.first_name %> : </p></h3>
+<div class="container">
+
+ <div class="row">
+      <% u.gossips.all.each do |gossip| %>
+<div class=" col-md-4 ">
+<br/>
+  <div class="card-header  card text-white    ">
+
+        <% g = gossip%>
+       <p>Titre : <br/> <h2><a class="text-white" href="/gossips/<%= (g.id) %>"><%= g.title %> </a><br/> <h2> </p>
+        </div>
+        </div>
+
+
+
+    <% end %>
+</div>
+        </div>
+</body>

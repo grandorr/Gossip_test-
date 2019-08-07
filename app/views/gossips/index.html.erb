@@ -1,0 +1,37 @@
+<html>
+  <body class="home">
+    <br/>
+    <h1 class ="text-white"><center>The Gossip Project</h1>
+      <br/>
+
+
+
+
+
+
+<p class="text-white"><center><h3 class="text-white"> Vous voulez crée un gossip?</h3> </center></p>
+    <center><h5 class ="text-white">Il suffit de cliquer ici : <a href="<%=new_gossip_path%>"><button type="button" class="btn btn-light">Crée un gossip</button></h5></a>
+
+<div class="container">
+
+ <div class="row">
+         <!--  <%= n = 0 %> -->
+      <% @gossips.each do |gossip| %>
+<div class=" col-md-4 ">
+<br/>
+  <div class="card-header  card text-white   ">
+         Ecrit par :
+       <h1><a class="text-white" <%= link_to gossip.user.first_name, user_path(gossip.user.id) %>  </a></h1>
+      Titre : <br/> <h2><a class="text-white" href="/gossips/<%= (gossip.id) %>"><%= gossip.title %></a><br/> <h2>
+        </div>
+        </div>
+      <!--  <%= n = n + 1 %> -->
+
+
+
+    <% end %>
+</div>
+        </div>
+
+  </body>
+</html>

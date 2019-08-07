@@ -1,0 +1,36 @@
+<html>
+<body class="gossip text-white">
+<% 10.times do %>
+<br/>
+<% end %>
+<center>
+	<% g = Gossip.find(params[:id]) %>
+
+<div class="container">
+<div class="row">
+
+<div class=" col ">
+  <p> Créateur : </p>
+<h1>  <a class="text-white" <%= link_to g.user.first_name, user_path(g.user.id) %>  </a></h1>
+<br/>
+
+  <div class="card-header  card text-white    ">
+    <h3> Titre : <%= g.title %> </h3>
+	<h2><p class="text-dark">	<%= g.content%> </p></h2>
+  <p> Date de création : <%= g.created_at%> </p>
+  <br/>
+  <br/>
+</div>
+</div>
+</div>
+</div>
+<!--	<a href="/edit/gossip/<%= params[:id]%>">Modifier</a> -->
+<br/>
+<p> <a class="text-white" <%= link_to "Retour au menu des gossips ", gossips_path %></a>
+	<br/>
+	<br/>
+	<br/>
+
+
+</body>
+</html>
