@@ -1,43 +1,72 @@
-<html>
-<body class="gossip text-white">
-<% 10.times do %>
 <br/>
+<br/>
+<br/>
+<br/>
+
+<% if alert == "success" %>
+	<div class="alert alert-success" role="alert">
+			<p>Your gossip has been correctly saved.</p>
+	</div>
 <% end %>
 
-<center>
+<center><h1 class="text-dark"> <%= image_tag "https://images.squarespace-cdn.com/content/5af4ddfbf79392c1ef073788/1525997123742-DBZW83I4UE8OAJC4AEAR/GOSSIP_Logo.png?content-type=image%2Fpng" %></center>
 	<% g = Gossip.find(params[:id]) %>
 
 <div class="container">
 <div class="row">
 
-<div class=" col ">
-  <p> Créateur : </p>
-<h1>  <a class="text-white" <%= link_to g.user.first_name, user_path(g.user.id) %>  </a></h1>
-<br/>
-<a class="text-white" <%=link_to g.user.city.name, city_path(g.user.city.id)  %> </a>
-<br/>
 
-  <div class="card-header  card text-white    ">
-    <h3> Titre : <%= g.title %> </h3>
-	<h2><p class="text-dark">	<%= g.content%> </p></h2>
+
+  <div class="card-header  card text-white bg-dark   ">
+		 Créateur :
+	<h1>  <a class="text-white" <%= link_to g.user.first_name, user_path(g.user.id) %>  </a></h1>
+
+ville : <h1>	<a class="text-white" <%=link_to g.user.city.name, city_path(g.user.city.id)  %> </a></h1>
+	<br/>
+
+
+
+   Titre :  <h3> <%= g.title %> </h3>
+Contenue :
+	<h2><p class="text-white">	<%= g.content%> </p></h2>
   <p> Date de création : <%= g.created_at%> </p>
+			<% @l = g.id %>
+<p>Ce gossip à 	<%= g.likes.count %>  like</p>
+	<%  current_user.likes.each do |like| %>
+	<% if like.gossip.id == g.id %>
+	<% @l = like.id %>
+	<% @true = 1 %>
+	<% else %>
+	<% @check = 0 %>
+	<% end %>
+	<% end %>
+	<% if @true != 1 %>
+	<a class=" btn btn-light" <%= link_to "Like", like_index_path(:id => g.id), :method => :post %></a>
+	<% else %>
+	<a class=" btn btn-light" <%= link_to "Unlike", like_path(@l), :method => :delete %></a>
+	<% end %>
+<a class="text-white btn btn-dark" <%= link_to "Modifier", edit_gossip_path(g.id) %></a>
+
+
+	<a class="text-white btn btn-dark"<%= link_to 'Supprimer',
+	             gossip_path(g.id),
+	                         method: :delete,
+	                         data: { confirm: 'Are you sure?' } %>
+													 <br/>
+													 <br/>
+	<a class="btn btn-dark text-white" <%= link_to "Retour", gossips_path %></a>
   <br/>
   <br/>
 </div>
 </div>
 </div>
 </div>
+<center>
 <!--	<a href="/edit/gossip/<%= params[:id]%>">Modifier</a> -->
 <br/>
-<button type="button" class="btn btn-dark"><a class="text-white" <%= link_to "Modifier", edit_gossip_path(g.id) %></a></button>
-
-<button type="button" class="btn btn-dark"><a class="text-white"<%= link_to 'Supprimer',
-             gossip_path(g.id),
-                         method: :delete,
-                         data: { confirm: 'Are you sure?' } %>  </button>
-												 <br/>
-												 <br/>
-<button type="button" class="btn btn-dark"><a class="text-white" <%= link_to "Retour", gossips_path %></a></button>
+<% if flash[:danger] %>
+  <div class="alert alert-danger" role="alert"><%= flash[:danger] %></div>
+	<% end %> 
 	<br/>
 	<br/>
 	<br/>

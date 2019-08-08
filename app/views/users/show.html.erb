@@ -4,14 +4,16 @@
 <br/>
 <% end %>
 <center>
+    <div class="  card bg-dark  ">
 <!-- <%=u = User.find(params[:id])%> -->
 <h1><%= u.first_name %></h1>
 <p> <%= u.last_name %>
 <p>  <%= u.email %>
 <p>  <%= u.age %> ans
-<p> <%=link_to u.city.name, city_path(u.city.id)  %>
+<p> Ville : <a class=" btn btn-dark "<%=link_to u.city.name, city_path(u.city.id)  %>
 <h5><p>  <%= u.description %></h5>
 <p> Date de création du profil : <%= u.created_at %>
+  </div>
 <br/>
 <br/>
 <h3><p> Voici tout les gossips crée par <%= u.first_name %> : </p></h3>
@@ -21,10 +23,10 @@
       <% u.gossips.all.each do |gossip| %>
 <div class=" col-md-4 ">
 <br/>
-  <div class="card-header  card text-white    ">
+  <div class="card-header  card text-white bg-dark    ">
 
         <% g = gossip%>
-       <p>Titre : <br/> <h2><a class="text-white" href="/gossips/<%= (g.id) %>"><%= g.title %> </a><br/> <h2> </p>
+       <p>Titre : <br/> <h2><a class="text-white btn btn-dark btn-lg" href="/gossips/<%= (g.id) %>"><%= g.title %> </a><br/> <h2> </p>
         </div>
         </div>
 

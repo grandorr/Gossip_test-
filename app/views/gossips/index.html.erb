@@ -1,35 +1,62 @@
+
+
+
+
 <html>
   <body class="home">
     <br/>
-    <h1 class ="text-white"><center>The Gossip Project</h1>
+<center><h1 class="text-dark"> <%= image_tag "https://images.squarespace-cdn.com/content/5af4ddfbf79392c1ef073788/1525997123742-DBZW83I4UE8OAJC4AEAR/GOSSIP_Logo.png?content-type=image%2Fpng" %></center>
       <br/>
-
       <% if alert == "success" %>
         <div class="alert alert-success" role="alert">
             <p>Your gossip has been correctly saved.</p>
         </div>
       <% end %>
 
+<% if current_user %>
+<center> <h1> Bonjour <%= current_user.first_name %> </h1> </center>
+
+        <% end %>
 
 
+<p><center><h3 ><strong> Vous voulez crée un gossip?</strong></h3> </center></p>
+    <center><h5 ><a class ="btn btn-dark btn-primary" href="<%=new_gossip_path%>">Crée un gossip</a></h5>
 
-<p class="text-white"><center><h3 class="text-white"> Vous voulez crée un gossip?</h3> </center></p>
-    <center><h5 class ="text-white">Il suffit de cliquer ici : <a href="<%=new_gossip_path%>"><button type="button" class="btn btn-light">Crée un gossip</button></h5></a>
-
+<center>
 <div class="container">
 
  <div class="row">
-         <!--  <%= n = 0 %> -->
+
       <% @gossips.each do |gossip| %>
-<div class=" col-md-4 ">
+<div class=" col-md-4  ">
 <br/>
-  <div class="card-header  card text-white   ">
-         Ecrit par :
-       <h1><a class="text-white" <%= link_to gossip.user.first_name, user_path(gossip.user.id) %>  </a></h1>
-      Titre : <br/> <h2><a class="text-white" href="/gossips/<%= (gossip.id) %>"><%= gossip.title %></a><br/> <h2>
+  <div class=" card text-white bg-dark   ">
+
+      Titre : <br/> <h2><a class="text-white btn btn-dark btn-lg" href="/gossips/<%= (gossip.id) %>"><%= gossip.title %></a><br/> </h2>
+      Ecrit par :
+      <h1><a class="btn btn-dark btn-lg text-white" <%= link_to gossip.user.first_name, user_path(gossip.user.id) %>  </a></h1>
+      <h6><%= gossip.likes.count %> likes</h6>
+      <% if current_user %>
+      <%  current_user.likes.each do |like| %>
+    	<% if like.gossip.id == gossip.id %>
+    	<% @l = like.id %>
+    	<% @true = 1 %>
+    	<% else %>
+    	<% @check = 0 %>
+    	<% end %>
+    	<% end %>
+    	<% if @true != 1 %>
+    	<a class=" btn btn-light" <%= link_to "Like", like_index_path(:id => gossip.id), :method => :post %></a>
+    	<% else %>
+    	<a class=" btn btn-light" <%= link_to "Unlike", like_path(@l), :method => :delete %></a>
+    	<% end %>
+      <% @true = 0 %>
+      <% @check = 1 %>
+      <% end %> 
+        <h6><%= gossip.comments.count%> commentaire</h6>
         </div>
         </div>
-      <!--  <%= n = n + 1 %> -->
+
 
 
 
