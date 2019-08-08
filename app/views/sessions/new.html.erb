@@ -12,7 +12,7 @@
 
   <body class="text-white ">
 
-<center><h1>Connecte toi : </h1>
+<center><h1>Connexion : </h1>
 
     <%= form_tag url_for(action: 'create'), method: "post" do %>
 
@@ -29,7 +29,12 @@
 
 
       <%= submit_tag "Valider" %>
+
 <div><%= flash[:danger] %></div>
     <% end %>
+    <br/>
+        <br/>
+            <br/>
 
+ <a class=" btn-lg btn-dark btn-outline-secondary" <%= link_to "Tu n'a pas de compte? Crée un compte", new_user_path %></a>
     <br/></center>
