@@ -3,11 +3,15 @@ class GossipsController < ApplicationController
 
 
   def index
+
     @gossip = Gossip.all.sample
     @gossips = Gossip.all
+    @gossips = @gossips.sort_by{|gossip| gossip[:date]}
+    @gossips = @gossips.reverse
   end
 
   def show
+
     # Méthode qui récupère le potin concerné et l'envoie à la view show (show.html.erb) pour affichage
   end
 
@@ -56,7 +60,7 @@ end
 
 @gossip = Gossip.find(params[:id])
 @gossip.destroy
-redirect_to gossips_path
+redirect_to root
     end
   end
 

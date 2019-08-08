@@ -30,20 +30,24 @@ ville : <h1>	<a class="text-white" <%=link_to g.user.city.name, city_path(g.user
 Contenue :
 	<h2><p class="text-white">	<%= g.content%> </p></h2>
   <p> Date de création : <%= g.created_at%> </p>
-			<% @l = g.id %>
-<p>Ce gossip à 	<%= g.likes.count %>  like</p>
-	<%  current_user.likes.each do |like| %>
-	<% if like.gossip.id == g.id %>
-	<% @l = like.id %>
-	<% @true = 1 %>
-	<% else %>
-	<% @check = 0 %>
-	<% end %>
-	<% end %>
-	<% if @true != 1 %>
-	<a class=" btn btn-light" <%= link_to "Like", like_index_path(:id => g.id), :method => :post %></a>
-	<% else %>
-	<a class=" btn btn-light" <%= link_to "Unlike", like_path(@l), :method => :delete %></a>
+
+<p>Ce gossip a 	<%= g.likes.count %>  like</p>
+<% @l = g.id %>
+<%  current_user.likes.each do |like| %>
+<% if like.gossip.id == g.id %>
+<% @l = like.id %>
+<% @true = 1 %>
+<% else %>
+<% @check = 0 %>
+<% end %>
+<% end %>
+<% if @true != 1 %>
+<a class=" btn btn-primary" <%= link_to "Like", like_index_path(:id => g.id), :method => :post %></a>
+<% else %>
+<a class=" btn btn-dark" <%= link_to "Unlike", like_path(@l), :method => :delete %></a>
+<% end %>
+<% if flash[:danger] %>
+  <div class="alert alert-primary" role="alert"><%= flash[:danger] %></div>
 	<% end %>
 <a class="text-white btn btn-dark" <%= link_to "Modifier", edit_gossip_path(g.id) %></a>
 
@@ -55,6 +59,7 @@ Contenue :
 													 <br/>
 													 <br/>
 	<a class="btn btn-dark text-white" <%= link_to "Retour", gossips_path %></a>
+
   <br/>
   <br/>
 </div>
@@ -64,13 +69,9 @@ Contenue :
 <center>
 <!--	<a href="/edit/gossip/<%= params[:id]%>">Modifier</a> -->
 <br/>
-<% if flash[:danger] %>
-  <div class="alert alert-danger" role="alert"><%= flash[:danger] %></div>
-	<% end %> 
-	<br/>
-	<br/>
-	<br/>
-<h2 class="text-white"> Commentaire </h2>
+
+
+<h2 > Commentaire </h2>
 <% g.comments.each do |comment| %>
 <div class="container">
 <div class="row">
@@ -87,6 +88,7 @@ Contenue :
 </div>
 </div>
 </div>
+<% if comment.user == current_user %>
 <button type="button" class="btn btn-dark"><a class="text-white" <%= link_to "Modifier", edit_comment_path(comment.id) %></a></button>
 
 <button type="button" class="btn btn-dark"><a class="text-white"<%= link_to 'Supprimer',
@@ -95,6 +97,7 @@ Contenue :
 												 data: { confirm: 'Are you sure?' } %>  </button>
 												 <br/>
 												 <br/>
+												 <% end %>
 <% end %>
 	Ecrit ton commentaire ici :
 	<%= form_tag url_for(controller: 'comment',action: 'create', method: "post") do %>
