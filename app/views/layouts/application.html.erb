@@ -37,8 +37,26 @@
       <a class="dropdown-item" <%= link_to "Crée un compte", new_user_path %></a>
       <a class="dropdown-item" <%= link_to "Se connecter", new_session_path %></a>
       <% end %>
-    </div>
 
+    </div>
+    <div class="dropdown navbar-nav ml-auto mr-5  ">
+      <button class="btn btn-secondary   dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <% if current_user %>
+        <%= current_user.first_name %>
+      <% else %>
+      Connexion
+        <% end %>
+      </button>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <% if current_user %>
+        <a class="dropdown-item" <%= link_to "Se déconnecter", session_path(session.id), method: :delete %></a>
+        <a class="dropdown-item" <%= link_to "Voir mon profil", user_path(current_user.id) %> </a>
+        <% else %>
+        <a class="dropdown-item" <%= link_to "Crée un compte", new_user_path %></a>
+        <a class="dropdown-item" <%= link_to "Login", new_session_path %></a>
+        <% end %>
+      </div>
+    </div>
 
         </nav>
 
